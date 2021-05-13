@@ -3,11 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <title>Etch-A-Sketch</title>
-        <link rel="stylesheet" href="atyle.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1>Etch-A-Sketch</h1>
         <div class="etchCanvas"></div>
+        <h2>Change it up!</h2>
+        <form action="#">
+            <h3>Number of grid cells</h3>
+            <label for="gridSize">Grid Size:</label><input type="range" min="16" max="64" step="1" name="gridSize" id="gridSize">
+            <h3>Colour</h3>
+            <button id="greyScale">Grey Scale</button>
+            <button id="greyScale">Rainbow</button>
+            <label for="colour">Pick your own:</label>
+            <input type="color" name="colour" id="colour">
+            <h3>Eraser</h3>
+            <button id="clearGrid">The Whole Grid</button>
+            <button id="eraser">Just a bit of it</button>
+        </form>
     </body>
     <script src="script.js"></script>
 </HTML>
