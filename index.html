@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Etch-A-Sketch</title>
-        <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="resetstyle.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1>Etch-A-Sketch</h1>
@@ -13,15 +13,23 @@
             <h2>Change it up!</h2>
             <form action="#">
                 <h3>Number of grid cells</h3>
-                <label for="gridSize">Grid Size:</label><input type="range" min="16" max="64" step="1" name="gridSize" id="gridSize">
+                <div class="gridSize">
+                    <label for="gridSize">Grid Size:</label><p></p><input type="range" min="16" max="64" step="1" name="gridSize" id="gridSize" value="32">
+                </div>
                 <h3>Colour</h3>
-                <button id="greyScale">Grey Scale</button>
-                <button id="rainbow">Rainbow</button>
-                <label for="colour">Pick your own:</label>
-                <input type="color" name="colour" id="picker">
+                <div class="colourSelect">
+                    <button id="greyScale">Grey Scale</button>
+                    <button id="rainbow">Rainbow</button>
+                    <div class="picker">
+                        <label for="colour">Pick your own:</label>
+                        <input type="color" name="colour" id="picker">
+                    </div>
+                </div>
                 <h3>Eraser</h3>
-                <button id="clearGrid">The Whole Grid</button>
-                <button id="eraser">Just a bit of it</button>
+                <div class="eraser">
+                    <button id="eraser">Just a bit of it</button>
+                    <button id="clearGrid">The Whole Grid</button>
+                </div>
             </form>
         </main>
     </body>

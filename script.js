@@ -6,6 +6,7 @@
  const colourPicker = document.getElementById('picker');
  const clearGrid = document.getElementById('clearGrid');
  const eraser = document.getElementById('eraser');
+ const sizeLabel = document.querySelector('form p');
 
  /*Colours object.*/
 const colours = {
@@ -16,7 +17,7 @@ const colours = {
 }
 
 /*Populating container with grid cells.*/
-function makeGrid() {
+function makeGrid(e) {
     [...container.childNodes].forEach(child => container.removeChild(child));
     container.style.gridTemplateColumns = `repeat(${gridSize.value}, 1fr)`
     for(let i = 1; i <= gridSize.value**2; i++){
@@ -26,6 +27,10 @@ function makeGrid() {
         div.addEventListener('mouseover', colour)
         container.appendChild(div);
     }
+
+    //If being called due to grid resizing.
+    sizeLabel.textContent = `${gridSize.value} x ${gridSize.value}`
+    
 }
 
 /*To colour in grid cells when the mouse is over them.*/
