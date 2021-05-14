@@ -38,7 +38,7 @@ h2 {
     text-align: center;
 }
 
-form {
+section {
     padding: 10px;
     margin: 20px auto 0 auto;
     width: 260px;
@@ -46,7 +46,7 @@ form {
     border-radius: 3px;
 }
 
-form h3{
+section h3{
     margin: 10px 0;
     height: 32px;
     line-height: 32px;
@@ -108,7 +108,7 @@ form h3{
     display: grid;
 }
 
-.eraser #clearGrid { 
+.eraser .clearGrid { 
     margin: 5px auto 0 auto; 
     height: 30px;
     width: 115px;

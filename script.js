@@ -1,12 +1,9 @@
  /*Retrieve HTMl elements.*/
  const container = document.querySelector('.gridContainer');
  const gridSize = document.getElementById('gridSize');
- const greyScale = document.getElementById('greyScale');
- const rainbow = document.getElementById('rainbow');
  const colourPicker = document.getElementById('picker');
- const clearGrid = document.getElementById('clearGrid');
- const eraser = document.getElementById('eraser');
- const sizeLabel = document.querySelector('form p');
+ const sizeLabel = document.querySelector('section p');
+ const userInputs = document.querySelector('section');
 
  /*Colours object.*/
 const colours = {
@@ -17,14 +14,13 @@ const colours = {
 }
 
 /*Populating container with grid cells.*/
-function makeGrid(e) {
+function makeGrid() {
     [...container.childNodes].forEach(child => container.removeChild(child));
     container.style.gridTemplateColumns = `repeat(${gridSize.value}, 1fr)`
     for(let i = 1; i <= gridSize.value**2; i++){
         const div = document.createElement('div');
         div.setAttribute('class', 'gridCell');
         div.setAttribute('data-grey', '1');
-        div.addEventListener('mouseover', colour)
         container.appendChild(div);
     }
 
@@ -38,18 +34,19 @@ function colour(e) {
     if(!colours.rainbow && !colours.grey && !colours.eraser){
         e.target.style.backgroundColor = colours.picker;
     } else if (colours.rainbow && !colours.grey && !colours.eraser) {
-        rainbowColour(e)
+        console.log(typeof(e.target.style))
+        rainbowColour(e.target.style)
     } else if (!colours.rainbow && colours.grey && !colours.eraser) {
-        fiftyShades(e)
+        fiftyShades(e.target)
     } else if (!colours.rainbow && !colours.grey && colours.eraser) {
-        rubbingOut(e)
+        rubbingOut(e.target)
     }
 }
 
 /*Rainbow colouring.*/
 let hue = 0; //Global variable so that it can change consistently across events.
-function rainbowColour(e) {
-    e.target.style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
+function rainbowColour(style) {
+    style.backgroundColor = `hsl(${hue}, 100%, 50%)`;
     hue += 5;
     if(hue > 360) {
         hue = 0;
@@ -57,30 +54,29 @@ function rainbowColour(e) {
 }
 
 /*Colouring with grey scale.*/
-function fiftyShades(e) {
-    let shade = e.target.dataset.grey;
-    console.log(shade)
+function fiftyShades(target) {
+    let shade = target.dataset.grey;
     if(shade >= 10){
-        e.target.style.backgroundColor = `rgba(0, 0, 0, ${shade})`;
+        target.style.backgroundColor = `rgba(0, 0, 0, ${shade})`;
     } else {
-        e.target.style.backgroundColor = `rgba(0, 0, 0, 0.${shade})`;
+        target.style.backgroundColor = `rgba(0, 0, 0, 0.${shade})`;
         shade = Number(shade);
         shade++;
-        e.target.dataset.grey = `${shade}`;
+        target.dataset.grey = `${shade}`;
     }
 }
 
 /*Eraser*/
-function rubbingOut(e) {
-    e.target.style.backgroundColor = `#fff`;
-    e.target.dataset.grey = `1`;
+function rubbingOut(target) {
+    target.style.backgroundColor = `#fff`;
+    target.dataset.grey = `1`;
 }
 
 /*For picking a colour*/
-function setColour(e) {
-    switch (e.target.id){
+function setColour(target, colourValue) {
+    switch (target){
         case 'picker':
-            colours.picker = e.target.value
+            colours.picker = colourValue
             colours.rainbow = false
             colours.grey = false
             colours.eraser = false
@@ -103,19 +99,26 @@ function setColour(e) {
     } 
 }
 
+/*Function for click triggered events*/
+function click(e) {
+    if(e.target.dataset.click === 'colour'){
+        setColour(e.target.id, null);
+    } else if(e.target.dataset.click === 'clear-grid'){
+        makeGrid();
+    }
+}
+
 /*All the event listeners.*/
 
 //Setting up grid on page load.
 window.addEventListener('load', makeGrid);
 
-//For the colour controls.
-greyScale.addEventListener('click', setColour);
-rainbow.addEventListener('click', setColour);
-picker.addEventListener('input', setColour);
-
-//Erasing
-eraser.addEventListener('click', setColour);
-clearGrid.addEventListener('click', makeGrid);
+//Colour and eraser choice.
+userInputs.addEventListener('click', click)
+picker.addEventListener('input', (e) => {setColour(e.target.id, e.target.value)});
 
 //Resizing the grid.
 gridSize.addEventListener('input', makeGrid);
+
+//Colouring in the grid cells.
+container.addEventListener('mouseover', colour);

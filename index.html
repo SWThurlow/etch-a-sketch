@@ -11,15 +11,15 @@
         <main>
             <div class="gridContainer"></div>
             <h2>Change it up!</h2>
-            <form action="#">
+            <section>
                 <h3>Number of grid cells</h3>
                 <div class="gridSize">
                     <label for="gridSize">Grid Size:</label><p></p><input type="range" min="16" max="64" step="1" name="gridSize" id="gridSize" value="32">
                 </div>
                 <h3>Colour</h3>
                 <div class="colourSelect">
-                    <button id="greyScale">Grey Scale</button>
-                    <button id="rainbow">Rainbow</button>
+                    <button id="greyScale"data-click="colour" >Grey Scale</button>
+                    <button id="rainbow" data-click="colour">Rainbow</button>
                     <div class="picker">
                         <label for="colour">Pick your own:</label>
                         <input type="color" name="colour" id="picker">
@@ -27,10 +27,10 @@
                 </div>
                 <h3>Eraser</h3>
                 <div class="eraser">
-                    <button id="eraser">Just a bit of it</button>
-                    <button id="clearGrid">The Whole Grid</button>
+                    <button id="eraser" data-click="colour">Just a bit of it</button>
+                    <button class="clearGrid" data-click="clear-grid">The Whole Grid</button>
                 </div>
-            </form>
+            </section>
         </main>
     </body>
     <script src="script.js"></script>
