@@ -5,13 +5,8 @@
  const sizeLabel = document.querySelector('section p');
  const userInputs = document.querySelector('section');
 
- /*Colours object.*/
-const colours = {
-    picker: colourPicker.value,
-    rainbow: false,
-    grey: false,
-    eraser: false,
-}
+/*For deciding on a colour.*/
+let currentColour = colourPicker.value;
 
 /*Populating container with grid cells.*/
 function makeGrid() {
@@ -31,15 +26,15 @@ function makeGrid() {
 
 /*To colour in grid cells when the mouse is over them.*/
 function colour(e) {
-    if(!colours.rainbow && !colours.grey && !colours.eraser){
-        e.target.style.backgroundColor = colours.picker;
-    } else if (colours.rainbow && !colours.grey && !colours.eraser) {
-        console.log(typeof(e.target.style))
+    if(e.target.classList[0] === 'gridContainer') return;
+    if (currentColour === 'rainbow') {
         rainbowColour(e.target.style)
-    } else if (!colours.rainbow && colours.grey && !colours.eraser) {
+    } else if (currentColour === 'greyScale') {
         fiftyShades(e.target)
-    } else if (!colours.rainbow && !colours.grey && colours.eraser) {
+    } else if (currentColour === 'eraser') {
         rubbingOut(e.target)
+    } else {
+        e.target.style.backgroundColor = currentColour;
     }
 }
 
@@ -76,25 +71,16 @@ function rubbingOut(target) {
 function setColour(target, colourValue) {
     switch (target){
         case 'picker':
-            colours.picker = colourValue
-            colours.rainbow = false
-            colours.grey = false
-            colours.eraser = false
+            currentColour = colourValue;
             break;
         case 'rainbow':
-            colours.rainbow = true
-            colours.grey = false
-            colours.eraser = false
+            currentColour = 'rainbow';
             break;
         case 'greyScale':
-            colours.rainbow = false
-            colours.grey = true
-            colours.eraser = false
+            currentColour = 'greyScale';
             break;
         case 'eraser':
-            colours.rainbow = false
-            colours.grey = false
-            colours.eraser = true
+            currentColour = 'eraser';
             break;
     } 
 }
