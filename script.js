@@ -86,11 +86,16 @@ function setColour(target, colourValue) {
 }
 
 /*Function for click triggered events*/
+let colourOnClick = false; //To switch between colouring on click and on mouseover.
 function click(e) {
     if(e.target.dataset.click === 'colour'){
         setColour(e.target.id, null);
     } else if(e.target.dataset.click === 'clear-grid'){
         makeGrid();
+    } else if(e.target.dataset.click === 'draw-on-click'){
+        colourOnClick = true;
+    } else if(e.target.dataset.click === 'draw-on-mouseover'){
+        colourOnClick = false;
     }
 }
 
@@ -107,4 +112,11 @@ picker.addEventListener('input', (e) => {setColour(e.target.id, e.target.value)}
 gridSize.addEventListener('input', makeGrid);
 
 //Colouring in the grid cells.
-container.addEventListener('mouseover', colour);
+container.addEventListener('mouseover', (e) => {
+    if(colourOnClick === true) return;
+    colour(e);
+});
+container.addEventListener('click', (e) => {
+    if(colourOnClick === false) return;
+    colour(e);
+});

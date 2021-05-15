@@ -127,3 +127,28 @@ section h3{
     background-color: rgba(20, 14, 14, 0.671);
     color: rgb(255, 123, 46);
 }
+
+.howToDraw {
+    display: grid;
+}
+
+
+.howToDraw .drawOnClick{
+    height: 30px;
+    width: fit-content;
+    margin: 0 auto;;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(20, 14, 14, 0.671);
+    color: rgb(110, 125, 255);
+}
+
+.howToDraw .drawOnMouseover { 
+    margin: 5px auto 0 auto; 
+    height: 30px;
+    width: 116px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(20, 14, 14, 0.671);
+    color: rgb(250, 231, 123);
+}
